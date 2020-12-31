@@ -1,136 +1,75 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import React, {useState, BackHandler} from 'react';
+import {View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView ,Image} from 'react-native';
+import CInputNumber from './Component/Component_Input/CInputNumber';
+import CInputPassword from './Component/Component_Input/CInputPassword';
+import CInputText from './Component/Component_Input/CInputText';
 
 export default function Form(){
 
-    const [eyes, setEyes] = useState(true);
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [phone, setPhone] = useState();
+    const [userName, setUsername] = useState();
+    const [passWord, setPass] = useState();
+    const [cofirmPass, setConfim] = useState();
 
-    const show = (name) =>{
-        return(
-            <View style = {{
-                marginTop: '3%',
-                flex: 1,
-            }}>
-                <Text style = {style.titleText}>{name}*</Text>
-                <TextInput style = {{
-                    borderColor: 'gray', 
-                    borderWidth: 1,
-                    borderRadius: 20,
-                    paddingLeft: 15,
-                }} placeholder={name}>
-
-                </TextInput>
-                
-            </View>
-        );
+    const OutputText = () =>{
+        alert("Name: "+name +"\nEmail: "+ email + "\nPhone: "+ phone +"\nPhone: "+ userName + "\nPassword: "+ passWord);
     }
 
     return(
-        <View style = {{
-            margin: '3%',
-            flex: 1,
-        }}>
-            <View style = {[style.title,{flex: 1}]}>
-                <TouchableOpacity style = {{
-                    marginTop: '1%',
-                    width: '10%',}}>
-                        <Text style = {{
-                            fontSize: 35,
-                        }}>X</Text>
-                </TouchableOpacity>
-
-                <Text style = {{
-                    width: '80%',
-                    marginRight: '2%',
-                    textAlign: 'center',
-                    fontSize: 40,
-                }}>
-                    Đăng Ký
-                </Text>
-            </View>
-
-            {show("Tên người dùng ")}
-            {show("Email ")}
-            {show("Số điện thoại ")}
-            {show("Tên tài khoản ")}
-
+        <ScrollView>
             <View style = {{
-                marginTop: '3%',
+                margin: '3%',
                 flex: 1,
             }}>
-                <Text style = {style.titleText}>Mật khẩu *</Text>
-                    <View>
-                        <TextInput style = {{
-                            borderColor: 'gray', 
-                            borderWidth: 1,
-                            borderRadius: 20,
-                            paddingLeft: 15,
-                        }} placeholder="Mật khẩu" secureTextEntry={eyes}/>
-                        <TouchableOpacity style = {style.buttonEyes} onPress ={()=>setEyes(!eyes)}>
-                            {eyes ? 
-                                <Image style = {style.styleImage}
-                                source = {require('./image/eyes.png')}>
-                                </Image>
-                            :
-                                <Image style = {style.styleImage}
-                                source = {require('./image/eyes_on.png')}>
-                                </Image>
-                            }
-                            
-                        </TouchableOpacity>
-                    </View>
-                
-            </View>
-            <View style = {{
-                marginTop: '3%',
-                flex: 1,
-            }}>
-                <Text style = {style.titleText}>Xác nhận mật khẩu *</Text>
-                <View>
-                    <TextInput style = {{
-                        borderColor: 'gray', 
-                        borderWidth: 1,
-                        borderRadius: 20,
-                        paddingLeft: 15,
-                    }} placeholder="Xác nhận mật khẩu" secureTextEntry={eyes}>
-                    </TextInput>
-                    <TouchableOpacity style = {style.buttonEyes} onPress ={()=>setEyes(!eyes)}>
-                            {eyes ? 
-                                <Image style = {style.styleImage}
-                                source = {require('./image/eyes.png')}>
-                                </Image>
-                            :
-                                <Image style = {style.styleImage}
-                                source = {require('./image/eyes_on.png')}>
-                                </Image>
-                            }
-                            
-                        </TouchableOpacity>
+                <View style = {[style.title,{flex: 1}]}>
+                    <TouchableOpacity style = {{
+                        marginTop: '1%',
+                        width: '10%',}}>
+                            <Text style = {{
+                                fontSize: 35,
+                            }}>X</Text>
+                    </TouchableOpacity>
 
+                    <Text style = {{
+                        width: '80%',
+                        marginRight: '2%',
+                        textAlign: 'center',
+                        fontSize: 40,
+                    }}>
+                        Đăng Ký
+                    </Text>
                 </View>
-               
-            </View>
             
-            <View style = {{
-                flexDirection: 'row',
-                marginTop: '8%',
-                justifyContent: 'center',
-                flex: 1,
-            }}>
-                <TouchableOpacity style = {style.buttonView}>
-                    <Text style= {style.textButton}>Đăng Nhập</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style = {[style.buttonView,{marginLeft: '10%', backgroundColor: '#00BFFF'}]}>
-                    <Text style= {[style.textButton,{color: '#FFFFFF'}]}>Đăng Ký</Text>
-                </TouchableOpacity>
-            </View>
+                <CInputText label = {'Tên người dùng '} onChangeText = {setName}/>
+                <CInputText label = {'Email '} onChangeText = {setEmail}/>
+                <CInputNumber label = {'Số điện thoại '} onChangeText = {setPhone}/>
+                <CInputText label = {'Tên tài khoản '} onChangeText = {setUsername} />
 
-            <View style = {{justifyContent: 'center'}}>
-                <Text style = {{textAlign: 'center'}}> Bằng việc xác nhận tạo tài khoản, bạn đã đồng ý</Text>
-                <Text style = {{textAlign: 'center'}}> với các <Text style = {{color: '#00BFFF'}}> điều khoản quy định </Text> của chúng tôi </Text>
-            </View>
+                <CInputPassword label = {'Mật khẩu'} onChangeText = {setPass}/>
+                <CInputPassword label = {'Xác nhận lại mật khẩu'} onChangeText = {setConfim} />
+                <View style = {{
+                    flexDirection: 'row',
+                    marginTop: '8%',
+                    justifyContent: 'center',
+                    flex: 1,
+                }}>
+                    <TouchableOpacity style = {style.buttonView} >
+                        <Text style= {style.textButton}>Đăng Nhập</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style = {[style.buttonView,{marginLeft: '10%', backgroundColor: '#00BFFF'}]} onPress = {()=>OutputText()}>
+                        <Text style= {[style.textButton,{color: '#FFFFFF'}]}>Đăng Ký</Text>
+                    </TouchableOpacity>
+                </View>
 
-        </View>
+                <View style = {{justifyContent: 'center'}}>
+                    <Text style = {{textAlign: 'center'}}> Bằng việc xác nhận tạo tài khoản, bạn đã đồng ý</Text>
+                    <Text style = {{textAlign: 'center'}}> với các <Text style = {{color: '#00BFFF'}}> điều khoản quy định </Text> của chúng tôi </Text>
+                </View>
+
+            </View>
+        </ScrollView>
     );
 }
 const style = StyleSheet.create({
@@ -157,15 +96,6 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
     },
     
-    buttonEyes:{
-        position: 'absolute',
-        left: '88%',
-        top: '20%',
-    },
-
-    styleImage:{
-        height: 30,
-        width:35,
-    }
+    
 });
 
