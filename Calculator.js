@@ -13,20 +13,27 @@ export default function Calculator() {
     } else {
       data += x;
     }
-    console.log("nfhfhf" + data);
     setOutput(data);
   };
 
   const calculate = () => {
-    setOutput(eval(result));
-  };
-
+    try {
+      setOutput(eval(result));
+    } catch (error) {
+      setOutput('error'); 
+    }
+    // try {
+    //   setOutput(eval((result) || "" ) + "");
+    // } catch (e) {
+    //   setOutput('error');
+    // };
+  }
   const clear = () => {
     setOutput('0');
   };
 
   return (
-    <>
+    <View style ={{margin: 5, marginBottom: 20}}>
       <View style={style.result}>
         <Text style={style.textResult}>{result}</Text>
       </View>
@@ -58,7 +65,7 @@ export default function Calculator() {
           </Text>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 }
 
@@ -69,7 +76,8 @@ const style = StyleSheet.create({
   },
   textResult: {
     color: 'white',
-    fontSize: 80,
+    fontSize: 40,
+    textAlign: 'right',
   },
   calView: {
     height: 150,
